@@ -1,12 +1,16 @@
-
+'use strict';
 var allPictures=[];
+
 function Picture(name, filePath){
   this.name = name;
+  this.id = name.replace(' ','-');
   this.filePath = filePath;
-  this.totalCliks = 0;
+  this.totalClicks = 0;
   this.totalViews = 0;
   allPictures.push(this);
 }
+
+
 
 new Picture('bag', 'img/bag.jpg');
 new Picture('banana','img/banana.jpg');
@@ -35,45 +39,92 @@ var pictureOne = document.getElementById('one');
 var pictureTwo = document.getElementById('two');
 var pictureThree = document.getElementById('three');
 
-function getRandomPicture(picElement){
+var oldAttachedPictures = [];
+var attachedPictures = [];
 
-  var randomPicture = Math.floor(Math.random()* allPictures.length);
+function getRandomPicture() {
+  var pic;
 
-  picElement.src = allPictures[randomPicture].filePath;
-  picElement.alt = allPictures[randomPicture].name;
-  picElement.title = allPictures[randomPicture].name; 
-  
-  if (pictureOne === pictureTwo || pictureTwo === pictureThree || pictureThree === pictureOne) {
-    /*getRandomPicture(pictureOne);
-    getRandomPicture(pictureTwo);
-    getRandomPicture(pictureThree);*/
-}
+  while (true){
+    var randomPicture = Math.floor(Math.random()* allPictures.length);
+    pic = allPictures[randomPicture];
+    var exists = false;
 
-getRandomPicture(pictureOne);
-getRandomPicture(pictureTwo);
-getRandomPicture(pictureThree);
+    for (var i = 0; i < attachedPictures.length; i++) {
+      if (pic.id === attachedPictures[i].id) {
+        exists = true;
+        break;
+      }
+    }
 
-var clickBox = document.getElementById('box');
-clickBox.addEventListener('click', clickThePic);
+    for (var i = 0; i < oldAttachedPictures.length; i++) {
+      if (pic.id === oldAttachedPictures[i].id) {
+        exists = true;
+        break;
+      }
+    }
 
-function clickThePic(event){
-  getRandomPicture(pictureOne);
-  getRandomPicture(pictureTwo);
-  getRandomPicture(pictureThree); 
-
-}
-
-  
-
-}
-/*function changeImage(){
-  if allPicture.name{
-    //reload the page and put new images
-    event.target.reset(); 
-    newPicture();
-
-  
-
-  
+    if (!exists) {
+      break;
+    }
   }
-}*/
+
+  return pic;
+}
+
+function attach(picture, picElement) {
+  picElement.src = picture.filePath;
+  picture.totalViews++;
+  picElement.alt = picture.name;
+  picElement.title = picture.name;
+  picture.picelementid = picElement.id;
+  attachedPictures.push(picture);
+}
+
+function click() {
+  var picElement = this;
+  for (var i = 0; i < attachedPictures.length; i++) {
+    if (picElement.id === attachedPictures[i].picelementid) {
+      attachedPictures[i].totalClicks++;
+      break;
+    }
+  }
+
+  if (allClicks < 25) {
+    nextPage();
+  } else {
+    detachClick(pictureOne);
+    detachClick(pictureTwo);
+    detachClick(pictureThree);
+  }
+}
+
+function detachClick(picElement) {
+  picElement.removeEventListener('click', click);
+}
+
+function attachClick(picElement) {
+  picElement.addEventListener('click', click);
+}
+
+attachClick(pictureOne);
+attachClick(pictureTwo);
+attachClick(pictureThree);
+
+var allClicks = 0;
+
+function nextPage() {
+  oldAttachedPictures = attachedPictures;
+  attachedPictures = [];
+
+  var pictureObject1 = getRandomPicture();
+  attach(pictureObject1, pictureOne);
+  var pictureObject2 = getRandomPicture();
+  attach(pictureObject2, pictureTwo);
+  var pictureObject3 = getRandomPicture();
+  attach(pictureObject3, pictureThree);
+
+  allClicks++;
+}
+
+nextPage();
