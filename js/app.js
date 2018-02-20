@@ -1,5 +1,5 @@
-'use strict'
-;var allPictures=[];
+'use strict';
+var allPictures=[];
 
 function Picture(name, filePath){
   this.name = name;
