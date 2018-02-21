@@ -1,4 +1,5 @@
 'use strict';
+
 var allPictures=[];
 var clicksValue = [];
 var pictureNames=[];
@@ -94,7 +95,7 @@ function click() {
     }
   }
 
-  if (allClicks < 25) {
+  if (allClicks <= 25) {
     nextPage();
   } else {
     detachClick(pictureOne);
@@ -202,7 +203,7 @@ var Chart;
 function drawChart() {
   var ctx = document.getElementById('bus-chart').getContext('2d');
   new Chart(ctx, {
-    type: 'doughnut',
+    type: 'bar',
     data: data,
     options: {
       responsive: true,
