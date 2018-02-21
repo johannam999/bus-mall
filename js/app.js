@@ -3,6 +3,7 @@
 var allPictures=[];
 var clicksValue = [];
 var pictureNames=[];
+
 function Picture(name, filePath){
   this.name = name;
   this.id = name.replace(' ','-');
@@ -95,7 +96,7 @@ function click() {
     }
   }
 
-  if (allClicks <= 25) {
+  if (allClicks < 26) {
     nextPage();
   } else {
     detachClick(pictureOne);
@@ -148,6 +149,8 @@ function nextPage() {
 
 nextPage();
 
+
+
 var data = {
   labels: pictureNames,
   datasets: [{
@@ -199,6 +202,7 @@ var data = {
   }]
 };
 
+
 var Chart;
 function drawChart() {
   var ctx = document.getElementById('bus-chart').getContext('2d');
@@ -206,22 +210,13 @@ function drawChart() {
     type: 'bar',
     data: data,
     options: {
-      responsive: true,
-      animation: {
-        duration: 2000,
-        easing: 'easeOutBounce'
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
       }
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          max: 10,
-          min: 0,
-          stepSize: 1.0
-        }
-      }]
     }
   });
-
 }
-
