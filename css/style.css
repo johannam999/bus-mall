@@ -1,17 +1,44 @@
-#one {
-
-
+body{
+  width:960px;
+  background:rgba(128, 128, 128, 0.242);
 }
 div{
   margin:80px 0px 0px 70px;
+  width:800px;
   position:inline-block;
-  width:960px;
+  margin-left:10%;
   
 }
 header{
   font-size: 40px;
   font-weight:bold;
-}
+  margin-left:30%;
+  margin-top:50px;
+  }
 p{
-  font-size:30px;
+  margin:60px 10px 30px 30px;
+  font-size:22px; 
+}
+#bus-chart{
+  max-height: 600px;
+  max-width: 600px;
+}
+img {
+  width:250px;
+  height:250px;
+  border:7px solid purple;
+  margin:0px;
+}
+#one{
+  float:left;
+  border-radius: 5px 0 0 5px;
+}
+#two{
+  float:left;
+}
+#three{
+  float:left;
+  margin:0;
+  padding:0;
+  border-radius: 0 5px 5px 0;
 }

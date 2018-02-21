@@ -1,6 +1,7 @@
 'use strict';
 var allPictures=[];
-
+var clicksValue = [];
+var pictureNames=[];
 function Picture(name, filePath){
   this.name = name;
   this.id = name.replace(' ','-');
@@ -8,6 +9,7 @@ function Picture(name, filePath){
   this.totalClicks = 0;
   this.totalViews = 0;
   allPictures.push(this);
+
 }
 
 
@@ -44,8 +46,9 @@ var attachedPictures = [];
 
 function getRandomPicture() {
   var pic;
+  var searching = true;
 
-  while (true){
+  while (searching){
     var randomPicture = Math.floor(Math.random()* allPictures.length);
     pic = allPictures[randomPicture];
     var exists = false;
@@ -57,7 +60,7 @@ function getRandomPicture() {
       }
     }
 
-    for (var i = 0; i < oldAttachedPictures.length; i++) {
+    for (var j = 0; j < oldAttachedPictures.length; j++) {
       if (pic.id === oldAttachedPictures[i].id) {
         exists = true;
         break;
@@ -85,7 +88,8 @@ function click() {
   var picElement = this;
   for (var i = 0; i < attachedPictures.length; i++) {
     if (picElement.id === attachedPictures[i].picelementid) {
-      attachedPictures[i].totalClicks++;
+      attachedPictures[i].totalClicks+=1;
+
       break;
     }
   }
@@ -96,13 +100,26 @@ function click() {
     detachClick(pictureOne);
     detachClick(pictureTwo);
     detachClick(pictureThree);
+
+
+  }
+
+}
+function addToArray(){
+  for (var i = 0; i < allPictures.length;i++){
+    clicksValue[i] = allPictures[i].totalClicks;
+    pictureNames[i]= allPictures[i].name;
   }
 }
-
 function detachClick(picElement) {
   picElement.removeEventListener('click', click);
-}
+  hideBox();
+  drawChart();
 
+}
+function hideBox(){
+  document.getElementById('box').style.display='none';
+}
 function attachClick(picElement) {
   picElement.addEventListener('click', click);
 }
@@ -125,6 +142,85 @@ function nextPage() {
   attach(pictureObject3, pictureThree);
 
   allClicks++;
+  addToArray();
 }
 
 nextPage();
+
+var data = {
+  labels: pictureNames,
+  datasets: [{
+    data: clicksValue,
+    backgroundColor: [
+      'bisque',
+      'goldenRod',
+      'burlywood',
+      'lightblue',
+      'navy',
+      'bisque',
+      'darkgray',
+      'green',
+      'lightblue',
+      'coral',
+      'DarkKhaki',
+      'Aquamarine',
+      'burlywood',
+      'lightblue',
+      'brown',
+      'bisque',
+      'darkgray',
+      'DarkGoldenRod',
+      'lime',
+      'navy'
+    ],
+    hoverBackgroundColor: [
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple'
+    ]
+  }]
+};
+
+var Chart;
+function drawChart() {
+  var ctx = document.getElementById('bus-chart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+      responsive: true,
+      animation: {
+        duration: 2000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+
+}
+
