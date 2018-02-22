@@ -1,28 +1,31 @@
 body{
   width:960px;
-  background:rgba(128, 128, 128, 0.242);
+  background:rgba(176, 176, 176, 0.351);
+  font-family:verdana;
+  line-height: 30px;
+  margin:0 auto;
 }
 div{
   margin:80px 0px 0px 70px;
   width:800px;
   position:inline-block;
-  margin-left:10%;
+  margin-left:12%;
   
 }
 header{
   font-size: 40px;
   font-weight:bold;
-  margin-left:30%;
-  margin-top:50px;
+  margin-left:26%;
+  margin-top:10%;
   }
 p{
-  margin:60px 10px 30px 30px;
+  margin:70px 10px 30px 100px;
   font-size:22px; 
 }
 #bus-chart{
-  max-height: 600px;
-  width: 1000px;
-  margin: 10% 2% 10% 10%;
+  height: 600px;
+  width: 800px;
+  margin: 10% 0 10% 10%;
 }
 img {
   width:250px;
