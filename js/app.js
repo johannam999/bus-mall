@@ -15,8 +15,7 @@ function Picture(name, filePath){
 
 if (localStorage.pictureData) {
   allPictures = JSON.parse(localStorage.pictureData);
-//allPictures = localStorage.getItem("pictureData", myJson); LEAVING THIS COMMENT FOR LEARNING PURPOSE
-//var myJson = JSON.stringify(allPictures);
+
 } else{
 
 
