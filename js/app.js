@@ -120,6 +120,7 @@ function detachClick(picElement) {
   picElement.removeEventListener('click', click);
   hideBox();
   drawChart();
+  drawChartTwo();
 
 }
 function hideBox(){
@@ -220,6 +221,80 @@ function drawChart() {
           }
         }]
       }
+    }
+  });
+}
+var data2 = {
+  labels: pictureNames, // titles array we declared earlier
+  datasets: [{
+    data: clicksValue, // votes array we declared earlier
+    backgroundColor: [
+      'bisque',
+      'darkgray',
+      'burlywood',
+      'lightblue',
+      'navy',
+      'bisque',
+      'darkgray',
+      'burlywood',
+      'lightblue',
+      'navy',
+      'bisque',
+      'darkgray',
+      'burlywood',
+      'grey',
+      'navy',
+      'bisque',
+      'darkgray',
+      'burlywood',
+      'lightblue',
+      'navy'
+    ],
+    hoverBackgroundColor: [
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple',
+      'purple'
+    ]
+  }]
+};
+
+function drawChartTwo() {
+  var ctx = document.getElementById('bus-chart2').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: data2,
+    options: {
+      responsive: true,
+      animation: {
+        duration: 3000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
     }
   });
 }
